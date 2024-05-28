@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "774704709066",
+    "project_id": "friendiary-krrg",
+    "storage_bucket": "friendiary-krrg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774704709066:android:e934a4c351ee853c832333",
+        "android_client_info": {
+          "package_name": "com.example.proj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5c32Gthryl0y8H7Zl3eOjFaFUPyk0U-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
