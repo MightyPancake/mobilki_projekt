@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:proj/themes.dart';
 import 'friend_app.dart'; // Import your friend model or data class here
 
 class FriendDetailView extends StatelessWidget {
@@ -11,15 +10,14 @@ class FriendDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Color> tagColors = [
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.orange,
-      Colors.purple,
-      // Add more colors as needed
-    ];
-    var theme = Theme.of(context);
+    var tagColors = {
+      "przyjaciel": COLOR_TAG_PINK,
+      "praca": COLOR_TAG_PURPLE,
+      "rodzina": COLOR_TAG_GREEN,
+      "znajomy": COLOR_TAG_YELLOW,
+    };
+
+    var theme = myTheme;
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -27,11 +25,10 @@ class FriendDetailView extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
-              // Handle back button press
             },
           ),
           iconTheme: IconThemeData(
-            color: theme.colorScheme.onPrimary,
+            color: theme.colorScheme.surface,
           ),
           toolbarHeight: 90.0,
           actions: [
@@ -47,11 +44,7 @@ class FriendDetailView extends StatelessWidget {
           ],
           title: Text(
             'Profil',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: theme.colorScheme.onPrimary,
-            ),
+            style: toolbarTextStyle,
           ),
           backgroundColor: theme.colorScheme.primary,
         ),
@@ -64,30 +57,28 @@ class FriendDetailView extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: theme.primaryColor,
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0)),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0), // Adjust as needed
+              padding: const EdgeInsets.only(top: 10.0),
               child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    friend.picture), // Replace with actual image URL
+                backgroundImage: NetworkImage(friend.picture),
                 radius: 90.0,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 180.0), // Adjust as needed
+              padding: const EdgeInsets.only(top: 180.0, left: 20.0, right: 20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 28.0),
                   Text(
-                    friend.name, // Replace with actual name
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: theme.primaryColor),
+                    friend.name,
+                    textAlign: TextAlign.center,
+                    style: titleStyle,
                   ),
                   SizedBox(height: 8.0),
                   Row(
@@ -99,7 +90,7 @@ class FriendDetailView extends StatelessWidget {
                           padding: EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
                             color:
-                                tagColors[Random().nextInt(tagColors.length)],
+                                tagColors[tag],
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: Text(
@@ -116,8 +107,9 @@ class FriendDetailView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0), // Add horizontal margins
                     child: Text(
-                      friend.desc, // Replace with actual description
-                      style: TextStyle(fontSize: 18),
+                      friend.desc, 
+                      textAlign: TextAlign.justify,
+                      style: paragraphStyle,
                     ),
                   ),
                   SizedBox(
@@ -142,9 +134,9 @@ class FriendDetailView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 100.0,
-                  ),
+                  // SizedBox(
+                  //   height: 100.0,
+                  // ),
                   Text(
                     'Upcoming Meeting: Nothing yet', // Replace with actual meeting data
                     style: TextStyle(fontSize: 18),

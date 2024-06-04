@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:proj/themes.dart';
 import 'friend_detail.dart';
 import 'friend_app.dart';
 import 'add_friend.dart';
@@ -21,16 +22,12 @@ class FriendsView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         iconTheme: IconThemeData(
-          color: theme.colorScheme.onPrimary,
+          color: myTheme.colorScheme.surface,
         ),
         toolbarHeight: 90.0,
         title: Text(
           'Bliscy',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: theme.colorScheme.onPrimary,
-          ),
+          style: toolbarTextStyle,
         ),
         backgroundColor: theme.colorScheme.primary,
       ),
