@@ -17,17 +17,17 @@ class Friend {
 
 List<Friend> friends = [
     Friend(
-      name:"Alice",
+      name:"Alicja Przybylska",
       picture: "https://hips.hearstapps.com/hmg-prod/images/how-to-keep-ducks-call-ducks-1615457181.jpg?resize=2048:*",
       birthday: DateTime(2002, 11, 23),
-      tags: ["family", "friends"],
+      tags: ["rodzina", "przyjaciel"],
       desc: "Hi, my name is Alice. I love ducks! They're so adorable <3 I also like dogs, but ducks are definitely superior. In my free time I like to jog and read books becasue I'm boring. Jk, books are awesome, change my mind!"
       ),
     Friend(
-      name:"Bob",
+      name:"Marcin Wiśniewski",
       picture: "https://hips.hearstapps.com/hmg-prod/images/how-to-keep-ducks-call-ducks-1615457181.jpg?resize=2048:*",
       birthday: DateTime(1989, 02, 12),
-      tags: ["work", "school"],
+      tags: ["praca", "znajomy"],
       desc: "No description."
       ),
 ];

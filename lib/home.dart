@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:proj/themes.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    // var theme = Theme.of(context);
+    var theme = myTheme;
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(title: const Text('User Profile')),
       body: const Center(
         child: Column(
