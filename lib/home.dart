@@ -6,7 +6,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var theme = Theme.of(context);
     var theme = myTheme;
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,

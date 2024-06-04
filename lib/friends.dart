@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:proj/themes.dart';
 import 'friend_detail.dart';
@@ -9,15 +7,13 @@ import 'add_friend.dart';
 class FriendsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final List<Color> tagColors = [
-      Colors.red,
-      Colors.green,
-      Colors.blue,
-      Colors.orange,
-      Colors.purple,
-      // Add more colors as needed
-    ];
-    var theme = Theme.of(context);
+    var theme = myTheme;
+    var tagColors = {
+      "przyjaciel": COLOR_TAG_PINK,
+      "praca": COLOR_TAG_PURPLE,
+      "rodzina": COLOR_TAG_GREEN,
+      "znajomy": COLOR_TAG_YELLOW,
+    };
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -51,7 +47,7 @@ class FriendsView extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
                   padding: EdgeInsets.only(right: 50.0),
                   decoration: BoxDecoration(
-                    color: tagColors[Random().nextInt(tagColors.length)],
+                    color: tagColors[friend.tags],
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   child: Container(
@@ -96,8 +92,7 @@ class FriendsView extends StatelessWidget {
                                           EdgeInsets.symmetric(horizontal: 6.0),
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
-                                        color: tagColors[
-                                            Random().nextInt(tagColors.length)],
+                                        color: tagColors[tag],
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),

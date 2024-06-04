@@ -30,13 +30,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'frienDiary',
-        // theme: ThemeData(
-        //   brightness: Brightness.light,
-        //   useMaterial3: true,
-        //   colorScheme: const ColorScheme.light(
-        //     onPrimary: COLOR_PRIMARY,
-        //   ),
-        // ),
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: myTheme.colorScheme
@@ -98,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Expanded(
         child: Container(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: myTheme.colorScheme.surface,
           child: view,
         ),
       ),
@@ -117,7 +110,7 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    var theme = myTheme;
     var style = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.onPrimary,
     );
