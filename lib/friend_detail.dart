@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:proj/themes.dart';
 import 'friend_app.dart'; // Import your friend model or data class here
 
 class FriendDetailView extends StatelessWidget {
@@ -19,7 +20,8 @@ class FriendDetailView extends StatelessWidget {
       Colors.purple,
       // Add more colors as needed
     ];
-    var theme = Theme.of(context);
+    // var theme = Theme.of(context);
+    var theme = myTheme;
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -31,7 +33,7 @@ class FriendDetailView extends StatelessWidget {
             },
           ),
           iconTheme: IconThemeData(
-            color: theme.colorScheme.onPrimary,
+            color: theme.colorScheme.surface,
           ),
           toolbarHeight: 90.0,
           actions: [
@@ -49,7 +51,8 @@ class FriendDetailView extends StatelessWidget {
             'Profil',
             style: TextStyle(
               fontSize: 24,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Montserrat',
               color: theme.colorScheme.onPrimary,
             ),
           ),
@@ -86,8 +89,9 @@ class FriendDetailView extends StatelessWidget {
                     friend.name, // Replace with actual name
                     style: TextStyle(
                         fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: theme.primaryColor),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Montserrat',
+                        color: theme.colorScheme.inversePrimary),
                   ),
                   SizedBox(height: 8.0),
                   Row(

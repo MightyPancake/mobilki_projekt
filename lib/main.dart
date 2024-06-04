@@ -2,6 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:proj/firebase_options.dart';
+import 'package:proj/themes.dart';
 import 'package:provider/provider.dart';
 
 //Import views
@@ -28,10 +29,17 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Project App',
+        title: 'frienDiary',
+        // theme: ThemeData(
+        //   brightness: Brightness.light,
+        //   useMaterial3: true,
+        //   colorScheme: const ColorScheme.light(
+        //     onPrimary: COLOR_PRIMARY,
+        //   ),
+        // ),
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 71, 103, 206)),
+          colorScheme: myTheme.colorScheme
         ),
         home: MyHomePage(),
       ),

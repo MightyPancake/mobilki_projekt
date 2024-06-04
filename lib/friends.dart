@@ -28,7 +28,8 @@ class FriendsView extends StatelessWidget {
           'Bliscy',
           style: TextStyle(
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Montserrat',
             color: theme.colorScheme.onPrimary,
           ),
         ),

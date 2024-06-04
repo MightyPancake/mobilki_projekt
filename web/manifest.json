@@ -1,6 +1,6 @@
 {
-    "name": "proj",
-    "short_name": "proj",
+    "name": "frienDiary",
+    "short_name": "frienDiary",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
