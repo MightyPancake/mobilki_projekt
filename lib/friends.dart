@@ -117,12 +117,11 @@ class FriendsView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to add friend screen
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    AddFriendView()), // Replace with your new screen
+                    AddFriendView()),
           );
         },
         child: Icon(Icons.add),
