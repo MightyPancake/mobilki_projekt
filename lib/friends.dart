@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proj/components.dart';
 import 'package:proj/themes.dart';
 import 'friend_detail.dart';
 import 'friend_app.dart';
@@ -8,12 +9,6 @@ class FriendsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = myTheme;
-    var tagColors = {
-      "przyjaciel": COLOR_TAG_PINK,
-      "praca": COLOR_TAG_PURPLE,
-      "rodzina": COLOR_TAG_GREEN,
-      "znajomy": COLOR_TAG_YELLOW,
-    };
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -64,7 +59,7 @@ class FriendsView extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(
                                 40.0), // Adjust the radius as needed
-                            child: Image.network(
+                            child: Image.asset(
                               friend.picture,
                               height: 240.0,
                               width: 240.0,
@@ -87,20 +82,7 @@ class FriendsView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   for (String tag in friend.tags)
-                                    Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 6.0),
-                                      padding: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        color: tagColors[tag],
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      child: Text(
-                                        tag,
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                    drawTag(tag, tagColors)
                                 ],
                               ),
                               SizedBox(

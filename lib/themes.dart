@@ -40,9 +40,9 @@ TextStyle titleStyle = TextStyle(
 );
 
 TextStyle paragraphStyle = TextStyle(
-  fontSize: 12,
+  fontSize: 15,
   fontWeight: FontWeight.w400,
-  fontFamily: 'Montserrat',
+  fontFamily: 'Asap',
   color: myTheme.colorScheme.outline,
 );
 
@@ -52,3 +52,17 @@ TextStyle toolbarTextStyle = TextStyle(
   fontFamily: 'Montserrat',
   color: myTheme.colorScheme.surface,
 );
+
+TextStyle tagTextStyle = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  fontFamily: 'Montserrat',
+  color: myTheme.colorScheme.surface,
+);
+
+var tagColors = {
+      "przyjaciel": COLOR_TAG_PINK,
+      "praca": COLOR_TAG_PURPLE,
+      "rodzina": COLOR_TAG_GREEN,
+      "znajomy": COLOR_TAG_YELLOW,
+    };

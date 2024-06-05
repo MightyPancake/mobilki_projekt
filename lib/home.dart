@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/duck.jpg'),
+              backgroundImage: AssetImage('assets/img/bob.jpg'),
             ),
             SizedBox(height: 16),
             Text('John Doe', style: TextStyle(fontSize: 24)),
