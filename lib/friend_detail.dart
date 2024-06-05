@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:proj/components.dart';
-import 'package:proj/main.dart';
 import 'package:proj/dialog_windows.dart';
 import 'package:proj/themes.dart';
 import 'friend_app.dart';
 
 
-class FriendDetailView extends StatelessWidget {
-  final Friend friend; // Replace with your actual data model
+class FriendDetailView extends StatefulWidget {
+  final Friend friend;
+
   FriendDetailView({required this.friend});
 
-  int daysUntilNextMeeting(Friend friend) {
-  if (friend.meetingList == null || friend.meetingList!.isEmpty) {
-    return 0;
-  } else {
-    final today = DateTime.now();
-    final diff = today.difference(friend.meetingList!.last).inDays;
-    final daysLeft = friend.notificationFreq - diff;
-    return daysLeft;
-  }
+  @override
+  _FriendDetailViewState createState() =>
+  _FriendDetailViewState();
 }
+
+
+class _FriendDetailViewState extends State<FriendDetailView> {
+  int daysUntilNextMeeting(Friend friend) {
+    if (friend.meetingList == null || friend.meetingList!.isEmpty) {
+      return 0;
+    } else {
+      final today = DateTime.now();
+      final diff = today.difference(friend.meetingList!.last).inDays;
+      final daysLeft = friend.notificationFreq - diff;
+      if (daysLeft < 0) {
+        return 0;
+      }
+      return daysLeft;
+    }
+  }
+
+  int validateMeetingDate(DateTime date) {
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,20 +103,20 @@ class FriendDetailView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          friend.name,
+                          widget.friend.name,
                           textAlign: TextAlign.center,
                           style: titleStyle,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            for (String tag in friend.tags) drawTag(tag, tagColors),
+                            for (String tag in widget.friend.tags) drawTag(tag, tagColors),
                           ],
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 30.0),
                           child: Text(
-                            friend.desc,
+                            widget.friend.desc,
                             textAlign: TextAlign.justify,
                             style: paragraphStyle,
                           ),
@@ -112,7 +126,7 @@ class FriendDetailView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'Birthday:',
+                              'Urodziny:',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -126,7 +140,7 @@ class FriendDetailView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Text(
-                                DateFormat('MMM d').format(friend.birthday),
+                                DateFormat('MMM d').format(widget.friend.birthday),
                                 style: TextStyle(
                                   fontSize: 20, 
                                   fontFamily: 'Asap', 
@@ -176,7 +190,7 @@ class FriendDetailView extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "${friend.notificationFreq} dni",
+                                          "${widget.friend.notificationFreq} dni",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontFamily: 'Asap', 
@@ -216,7 +230,7 @@ class FriendDetailView extends StatelessWidget {
                                       ),
                                       Row(children: [
                                         Text(
-                                          "${friend.meetingList?.length}",
+                                          "${widget.friend.meetingList?.length}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontFamily: 'Asap', 
@@ -256,7 +270,7 @@ class FriendDetailView extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "${daysUntilNextMeeting(friend)} dni",
+                                    "${daysUntilNextMeeting(widget.friend)} dni",
                                     style: const TextStyle(
                                       fontSize: 20, 
                                       fontFamily: 'Asap', 
@@ -283,7 +297,7 @@ class FriendDetailView extends StatelessWidget {
             Positioned(
               top: 30.0,
               child: CircleAvatar(
-                backgroundImage: AssetImage(friend.picture),
+                backgroundImage: AssetImage(widget.friend.picture),
                 radius: 90.0,
               ),
             ),
@@ -298,8 +312,8 @@ class FriendDetailView extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (context) => AddMeetingDialog(),
-            );
+              builder: (context) => AddMeetingDialog(friend: widget.friend),
+            ).then((_) => setState(() {}));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

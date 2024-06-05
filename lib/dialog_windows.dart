@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:proj/friend_app.dart';
 import 'dart:ui';
 import 'package:proj/themes.dart';
 
 class AddMeetingDialog extends StatefulWidget {
-  const AddMeetingDialog({super.key});
+  final Friend friend;
+
+  const AddMeetingDialog({Key? key, required this.friend}) : super(key: key);
 
   @override
   _AddMeetingDialogState createState() => _AddMeetingDialogState();
 }
 
 class _AddMeetingDialogState extends State<AddMeetingDialog> {
-  final TextEditingController _descriptionController = TextEditingController();
+  // final TextEditingController _descriptionController = TextEditingController();
 
   int _selectedDay = 1;
   String _selectedMonth = 'Styczeń';
@@ -39,24 +42,7 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(padding: EdgeInsets.symmetric(vertical: 15.0), child: Text(
-                'Opis:',
-                style: TextStyle(
-                  color: theme.colorScheme.inversePrimary,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Montserrat',
-                ),
-              ),),
-              TextField(
-                maxLines: null,
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  // labelText: 'Opis',
-                  hintText: 'opis...',
-                  hintStyle: TextStyle(color: theme.colorScheme.shadow, fontFamily: 'Montserrat'),
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              // inputTextField('Opis', _descriptionController),
               const SizedBox(height: 20.0),
               Padding(padding: EdgeInsets.symmetric(vertical: 15.0), child: Text(
                 'Data:',
@@ -141,13 +127,37 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
           ),
           ElevatedButton(
             onPressed: () {
-              // Handle save logic
-              // For example, save the entered data
-              Navigator.of(context).pop();
+              final selectedDate = DateTime(
+                _selectedYear,
+                _months.indexOf(_selectedMonth) + 1,
+                _selectedDay,
+              );
+              if (selectedDate.isAfter(DateTime.now())) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Niepoprawna data'),
+                      content: Text('Data odbytego spotkania nie może być późniejsza niż dzień dzisiejszy.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                widget.friend.meetingList?.add(selectedDate);
+                Navigator.of(context).pop();
+              }
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.inversePrimary),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              backgroundColor: WidgetStateProperty.all<Color>(theme.colorScheme.inversePrimary),
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),

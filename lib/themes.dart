@@ -61,8 +61,8 @@ TextStyle tagTextStyle = TextStyle(
 );
 
 var tagColors = {
-      "przyjaciel": COLOR_TAG_PINK,
-      "praca": COLOR_TAG_PURPLE,
-      "rodzina": COLOR_TAG_GREEN,
-      "znajomy": COLOR_TAG_YELLOW,
-    };
+  "przyjaciel": COLOR_TAG_PINK,
+  "praca": COLOR_TAG_PURPLE,
+  "rodzina": COLOR_TAG_GREEN,
+  "znajomy": COLOR_TAG_YELLOW,
+};
