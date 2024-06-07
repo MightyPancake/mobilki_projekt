@@ -19,6 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: "^0.9.0"
 
 flutter:
   uses-material-design: true
@@ -40,3 +41,8 @@ flutter:
         - asset: assets/fonts/Asap-Medium.ttf
         - asset: assets/fonts/Asap-SemiBold.ttf
         - asset: assets/fonts/Asap-Thin.ttf
+
+flutter_icons:
+  image_path: "assets/icon/friendiary-logo.png" 
+  android: true
+  ios: true
