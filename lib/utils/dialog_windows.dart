@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proj/friend_app.dart';
 import 'dart:ui';
-import 'package:proj/themes.dart';
+import 'package:proj/utils/themes.dart';
 
 class AddMeetingDialog extends StatefulWidget {
   final Friend friend;
@@ -13,8 +13,6 @@ class AddMeetingDialog extends StatefulWidget {
 }
 
 class _AddMeetingDialogState extends State<AddMeetingDialog> {
-  // final TextEditingController _descriptionController = TextEditingController();
-
   int _selectedDay = 1;
   String _selectedMonth = 'Styczeń';
   int _selectedYear = DateTime.now().year;
@@ -53,7 +51,7 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
                 ),
               ),),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     width: 50,

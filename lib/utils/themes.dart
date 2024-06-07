@@ -12,6 +12,7 @@ const COLOR_TAG_PINK = Color(0xfff52768);
 const COLOR_TAG_PURPLE = Color(0xff790c9f);
 const COLOR_TAG_GREEN = Color(0xff0c9f35);
 const COLOR_TAG_YELLOW = Color(0xfff5af27);
+const COLOR_TAG_BLUE = Color(0xff1ad1dd);
 
 ThemeData myTheme = ThemeData(
   brightness: Brightness.light,
@@ -65,4 +66,5 @@ var tagColors = {
   "praca": COLOR_TAG_PURPLE,
   "rodzina": COLOR_TAG_GREEN,
   "znajomy": COLOR_TAG_YELLOW,
+  "sąsiad": COLOR_TAG_BLUE,
 };

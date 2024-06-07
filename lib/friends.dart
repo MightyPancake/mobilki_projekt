@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:proj/components.dart';
-import 'package:proj/themes.dart';
-import 'friend_detail.dart';
+import 'package:proj/utils/components.dart';
+import 'package:proj/utils/themes.dart';
+import 'friend_detail/friend_detail.dart';
 import 'friend_app.dart';
 import 'add_friend.dart';
 

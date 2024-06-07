@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proj/themes.dart';
+import 'package:proj/utils/themes.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

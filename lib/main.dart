@@ -2,7 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:proj/firebase_options.dart';
-import 'package:proj/themes.dart';
+import 'package:proj/utils/themes.dart';
 import 'package:provider/provider.dart';
 
 //Import views

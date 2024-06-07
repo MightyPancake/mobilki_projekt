@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:proj/components.dart';
-import 'package:proj/dialog_windows.dart';
-import 'package:proj/themes.dart';
-import 'friend_app.dart';
+import 'package:proj/friend_detail/friend_edit.dart';
+import 'package:proj/utils/components.dart';
+import 'package:proj/utils/dialog_windows.dart';
+import 'package:proj/utils/themes.dart';
+import '../friend_app.dart';
 
 
 class FriendDetailView extends StatefulWidget {
@@ -32,10 +33,6 @@ class _FriendDetailViewState extends State<FriendDetailView> {
     }
   }
 
-  int validateMeetingDate(DateTime date) {
-    return 0;
-  }
-
   @override
   Widget build(BuildContext context) {
     var theme = myTheme;
@@ -56,7 +53,12 @@ class _FriendDetailViewState extends State<FriendDetailView> {
           IconButton(
             icon: const Icon(Icons.edit), // Replace with your desired icon
             onPressed: () {
-              // Handle button press
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        EditFriendView(friend: widget.friend)),
+              );
             },
           ),
           const SizedBox(
@@ -282,7 +284,10 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                               IconButton(
                                 icon: Icon(Icons.arrow_forward_ios, color: theme.colorScheme.inversePrimary, size: 40.0,),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AddMeetingDialog(friend: widget.friend),
+                                  ).then((_) => setState(() {}));
                                 },
                               ),
                             ]
@@ -320,7 +325,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
             children: [
               const Icon(Icons.add),
               Text(
-                'dodaj spotkanie',
+                'zapisz spotkanie',
                 style: TextStyle(
                     fontSize: 16, 
                     fontFamily: 'Asap', 
