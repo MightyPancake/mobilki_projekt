@@ -56,7 +56,7 @@ TextStyle toolbarTextStyle = TextStyle(
 
 TextStyle tagTextStyle = TextStyle(
   fontSize: 12,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w500,
   fontFamily: 'Montserrat',
   color: myTheme.colorScheme.surface,
 );
@@ -67,4 +67,12 @@ var tagColors = {
   "rodzina": COLOR_TAG_GREEN,
   "znajomy": COLOR_TAG_YELLOW,
   "sąsiad": COLOR_TAG_BLUE,
+};
+
+var tagColorsSelected = {
+  "przyjaciel": Color(0xffc51d55), // darker shade of #f52768
+  "praca": Color(0xff5e087f), // darker shade of #790c9f
+  "rodzina": Color(0xff0a7f2b), // darker shade of #0c9f35
+  "znajomy": Color(0xffc48821), // darker shade of #f5af27
+  "sąsiad": Color(0xff159fae), // darker shade of #1ad1dd
 };

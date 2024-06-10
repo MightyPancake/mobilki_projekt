@@ -1,24 +1,24 @@
 //Friends
 class Friend {
-  final String name;
-  final String picture;
-  final DateTime birthday;
-  final List<String> tags;
-  final String desc;
-  final int notificationFreq;
-  final List<DateTime>? meetingList;
-  final int meetingsCount;
+  String name;
+  String picture;
+  DateTime birthday;
+  List<String> tags;
+  String desc;
+  int notificationFreq;
+  List<DateTime>? meetingList;
+  int meetingsCount;
 
   Friend({
     required this.name,
-    required this.picture,
+    String? picture,
     required this.birthday,
     required this.tags,
     required this.desc,
     required this.notificationFreq,
     required this.meetingsCount,
-    required this.meetingList,
-  });
+    this.meetingList,
+  }) : picture = picture == null || picture.isEmpty ? "assets/img/default_avatar.jpg" : picture;
 }
 
 List<Friend> friends = [
@@ -59,6 +59,16 @@ List<Friend> friends = [
       tags: ["rodzina"],
       desc: "To moja mama.",
       notificationFreq: 4,
+      meetingList: [],
+      meetingsCount: 0,
+    ),
+    Friend(
+      name:"Roxanne",
+      picture: "",
+      birthday: DateTime(1989, 02, 12),
+      tags: ["znajomy"],
+      desc: "No description.",
+      notificationFreq: 144,
       meetingList: [],
       meetingsCount: 0,
     ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:proj/friend_detail/friend_edit.dart';
@@ -9,14 +11,13 @@ import '../friend_app.dart';
 
 class FriendDetailView extends StatefulWidget {
   final Friend friend;
+  final Function() onUpdate;
 
-  FriendDetailView({required this.friend});
+  FriendDetailView({required this.friend, required this.onUpdate});
 
   @override
-  _FriendDetailViewState createState() =>
-  _FriendDetailViewState();
+  _FriendDetailViewState createState() => _FriendDetailViewState();
 }
-
 
 class _FriendDetailViewState extends State<FriendDetailView> {
   int daysUntilNextMeeting(Friend friend) {
@@ -31,6 +32,11 @@ class _FriendDetailViewState extends State<FriendDetailView> {
       }
       return daysLeft;
     }
+  }
+
+  void _updateState() {
+    setState(() {});
+    widget.onUpdate(); // Notify parent
   }
 
   @override
@@ -51,13 +57,16 @@ class _FriendDetailViewState extends State<FriendDetailView> {
         toolbarHeight: 90.0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit), // Replace with your desired icon
+            icon: const Icon(Icons.edit),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        EditFriendView(friend: widget.friend)),
+                  builder: (context) => EditFriendView(
+                    friend: widget.friend,
+                    onUpdate: _updateState,
+                  ),
+                ),
               );
             },
           ),
@@ -112,7 +121,16 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            for (String tag in widget.friend.tags) drawTag(tag, tagColors),
+                            Expanded(
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 3.0,
+                                runSpacing: -5.0,
+                                children: [
+                                  for (String tag in widget.friend.tags) drawTag(tag, tagColors),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                         Padding(
@@ -144,8 +162,8 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                               child: Text(
                                 DateFormat('MMM d').format(widget.friend.birthday),
                                 style: TextStyle(
-                                  fontSize: 20, 
-                                  fontFamily: 'Asap', 
+                                  fontSize: 20,
+                                  fontFamily: 'Asap',
                                   fontWeight: FontWeight.w700,
                                   color: theme.colorScheme.outline,
                                 ),
@@ -153,7 +171,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                             ),
                           ],
                         ),
-                        Row (
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
@@ -175,8 +193,8 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                       Text(
                                         'powiadomienia',
                                         style: TextStyle(
-                                          fontSize: 12, 
-                                          fontFamily: 'Montserrat', 
+                                          fontSize: 12,
+                                          fontFamily: 'Montserrat',
                                           fontWeight: FontWeight.w300,
                                           color: theme.colorScheme.inversePrimary,
                                         ),
@@ -186,7 +204,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                           "co ",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            fontFamily: 'Asap', 
+                                            fontFamily: 'Asap',
                                             fontWeight: FontWeight.w400,
                                             color: theme.colorScheme.inversePrimary,
                                           ),
@@ -195,7 +213,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                           "${widget.friend.notificationFreq} dni",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            fontFamily: 'Asap', 
+                                            fontFamily: 'Asap',
                                             fontWeight: FontWeight.w700,
                                             color: theme.colorScheme.inversePrimary,
                                           ),
@@ -224,8 +242,8 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                       Text(
                                         'spotkań',
                                         style: TextStyle(
-                                          fontSize: 12, 
-                                          fontFamily: 'Montserrat', 
+                                          fontSize: 12,
+                                          fontFamily: 'Montserrat',
                                           fontWeight: FontWeight.w300,
                                           color: theme.colorScheme.inversePrimary,
                                         ),
@@ -235,7 +253,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                           "${widget.friend.meetingList?.length}",
                                           style: TextStyle(
                                             fontSize: 20,
-                                            fontFamily: 'Asap', 
+                                            fontFamily: 'Asap',
                                             fontWeight: FontWeight.w400,
                                             color: theme.colorScheme.inversePrimary,
                                           ),
@@ -266,16 +284,16 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                   const Text(
                                     'Następny kontakt:',
                                     style: TextStyle(
-                                      fontSize: 15, 
-                                      fontFamily: 'Asap', 
+                                      fontSize: 15,
+                                      fontFamily: 'Asap',
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
                                   Text(
                                     "${daysUntilNextMeeting(widget.friend)} dni",
                                     style: const TextStyle(
-                                      fontSize: 20, 
-                                      fontFamily: 'Asap', 
+                                      fontSize: 20,
+                                      fontFamily: 'Asap',
                                       fontWeight: FontWeight.w700
                                     ),
                                   ),
@@ -287,7 +305,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AddMeetingDialog(friend: widget.friend),
-                                  ).then((_) => setState(() {}));
+                                  ).then((_) => _updateState());
                                 },
                               ),
                             ]
@@ -302,7 +320,9 @@ class _FriendDetailViewState extends State<FriendDetailView> {
             Positioned(
               top: 30.0,
               child: CircleAvatar(
-                backgroundImage: AssetImage(widget.friend.picture),
+                backgroundImage: widget.friend.picture.startsWith("assets/img/")
+                      ? AssetImage(widget.friend.picture)
+                      : FileImage(File(widget.friend.picture)) as ImageProvider,
                 radius: 90.0,
               ),
             ),
@@ -318,7 +338,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
             showDialog(
               context: context,
               builder: (context) => AddMeetingDialog(friend: widget.friend),
-            ).then((_) => setState(() {}));
+            ).then((_) => _updateState());
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -327,13 +347,12 @@ class _FriendDetailViewState extends State<FriendDetailView> {
               Text(
                 'zapisz spotkanie',
                 style: TextStyle(
-                    fontSize: 16, 
-                    fontFamily: 'Asap', 
+                    fontSize: 16,
+                    fontFamily: 'Asap',
                     fontWeight: FontWeight.w400,
                     color: theme.colorScheme.surface,
                   ),
               ),
-                
             ],
           ),
         ),
