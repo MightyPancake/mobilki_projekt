@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'home.dart';
 import 'friends.dart';
 import 'events.dart';
-import 'add_friend.dart';
 
 
 Future<void> main() async {
@@ -72,9 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         view = EventsView();
         break;
-      case 3:
-        view = AddFriendView();
-        break;
+      // case 3:
+      //   view = AddFriendView();
+      //   break;
       default:
         view = Placeholder();
     }

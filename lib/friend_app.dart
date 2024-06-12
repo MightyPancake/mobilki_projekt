@@ -7,7 +7,6 @@ class Friend {
   String desc;
   int notificationFreq;
   List<DateTime>? meetingList;
-  int meetingsCount;
 
   Friend({
     required this.name,
@@ -16,7 +15,6 @@ class Friend {
     required this.tags,
     required this.desc,
     required this.notificationFreq,
-    required this.meetingsCount,
     this.meetingList,
   }) : picture = picture == null || picture.isEmpty ? "assets/img/default_avatar.jpg" : picture;
 }
@@ -30,7 +28,6 @@ List<Friend> friends = [
       desc: "Hi, my name is Alice. I love ducks! They're so adorable <3 I also like dogs, but ducks are definitely superior. In my free time I like to jog and read books becasue I'm boring. Jk, books are awesome, change my mind!",
       notificationFreq: 30,
       meetingList: [DateTime(2024, 06, 01)],
-      meetingsCount: 0,
     ),
     Friend(
       name:"Marcin Wiśniewski",
@@ -40,7 +37,6 @@ List<Friend> friends = [
       desc: "Mechanik samochodowy z kręconymi, rudymi włosami i piegowatą twarzą, miłośnik rajdów samochodowych i muzyki rockowej.",
       notificationFreq: 45,
       meetingList: [],
-      meetingsCount: 0,
     ),
     Friend(
       name:"Bob",
@@ -50,7 +46,6 @@ List<Friend> friends = [
       desc: "Bob to wysoki informatyk z ciemnymi, krótko przyciętymi włosami i okularami, który w weekendy wspina się po górach i gra w turniejach e-sportowych.",
       notificationFreq: 14,
       meetingList: [],
-      meetingsCount: 0,
     ),
     Friend(
       name:"Mama",
@@ -60,7 +55,6 @@ List<Friend> friends = [
       desc: "To moja mama.",
       notificationFreq: 4,
       meetingList: [],
-      meetingsCount: 0,
     ),
     Friend(
       name:"Roxanne",
@@ -70,7 +64,6 @@ List<Friend> friends = [
       desc: "No description.",
       notificationFreq: 144,
       meetingList: [],
-      meetingsCount: 0,
     ),
 ];
 

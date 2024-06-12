@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:proj/utils/themes.dart';
 import 'friend_detail/friend_detail.dart';
@@ -14,6 +13,12 @@ class FriendsView extends StatefulWidget {
 class _FriendsViewState extends State<FriendsView> {
   void _refreshState() {
     setState(() {});
+  }
+
+  void _addFriend(Friend newFriend) {
+    setState(() {
+      friends.add(newFriend);
+    });
   }
 
   @override
@@ -172,7 +177,12 @@ class _FriendsViewState extends State<FriendsView> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddFriendView()),
+            MaterialPageRoute(
+              builder: (context) => AddFriendView(
+                friends: friends,
+                onAdd: _refreshState,
+              ),
+            ),
           ).then((_) => _refreshState()); // Refresh when returning from add friend view
         },
         child: Icon(Icons.add),
