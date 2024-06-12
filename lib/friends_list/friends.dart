@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:proj/utils/themes.dart';
-import 'friend_detail/friend_detail.dart';
-import 'friend_app.dart';
+import '../friend_detail/friend_detail.dart';
+import '../friend_app.dart';
 import 'add_friend.dart';
 
 class FriendsView extends StatefulWidget {

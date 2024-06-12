@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:proj/utils/themes.dart';
-import '../friend_app.dart';
+import '../../friend_app.dart';
 
 class AddFriendView extends StatefulWidget {
   final List<Friend> friends;
@@ -57,7 +57,7 @@ class _AddFriendViewState extends State<AddFriendView> {
     if (_nameController.text.isEmpty ||
         _descController.text.isEmpty ||
         _freqController.text.isEmpty ||
-        // _tempImagePath == null ||
+        _tempImagePath == null ||
         _selectedTags.isEmpty) {
       showDialog(
                   context: context,

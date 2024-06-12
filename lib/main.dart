@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 //Import views
 import 'home.dart';
-import 'friends.dart';
+import 'friends_list/friends.dart';
 import 'events.dart';
 
 
