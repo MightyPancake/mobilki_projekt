@@ -47,6 +47,7 @@ class DefaultFirebaseOptions {
     projectId: 'friendiary-krrg',
     authDomain: 'friendiary-krrg.firebaseapp.com',
     storageBucket: 'friendiary-krrg.appspot.com',
+    databaseURL: 'https://friendiary-krrg-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '774704709066',
     projectId: 'friendiary-krrg',
     storageBucket: 'friendiary-krrg.appspot.com',
+    databaseURL: 'https://friendiary-krrg-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -64,6 +66,7 @@ class DefaultFirebaseOptions {
     projectId: 'friendiary-krrg',
     storageBucket: 'friendiary-krrg.appspot.com',
     iosBundleId: 'com.example.proj',
+    databaseURL: 'https://friendiary-krrg-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -73,6 +76,7 @@ class DefaultFirebaseOptions {
     projectId: 'friendiary-krrg',
     storageBucket: 'friendiary-krrg.appspot.com',
     iosBundleId: 'com.example.proj',
+    databaseURL: 'https://friendiary-krrg-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -82,5 +86,6 @@ class DefaultFirebaseOptions {
     projectId: 'friendiary-krrg',
     authDomain: 'friendiary-krrg.firebaseapp.com',
     storageBucket: 'friendiary-krrg.appspot.com',
+    databaseURL: 'https://friendiary-krrg-default-rtdb.europe-west1.firebasedatabase.app/',
   );
 }

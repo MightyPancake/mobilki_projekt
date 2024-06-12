@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:proj/main.dart';
 import 'package:proj/utils/components.dart';
 import 'package:proj/utils/themes.dart';
+import 'package:provider/provider.dart';
 import 'friend_detail/friend_detail.dart';
 import 'friend_app.dart';
 import 'add_friend.dart';
@@ -13,12 +15,14 @@ class FriendsView extends StatefulWidget {
 }
 
 class _FriendsViewState extends State<FriendsView> {
+  
   void _refreshState() {
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final myAppState = Provider.of<MyAppState>(context);
     var theme = myTheme;
     return Scaffold(
       appBar: AppBar(
@@ -34,9 +38,9 @@ class _FriendsViewState extends State<FriendsView> {
         backgroundColor: theme.colorScheme.primary,
       ),
       body: ListView.builder(
-        itemCount: friends.length,
+        itemCount: myAppState.friends.length,
         itemBuilder: (context, index) {
-          final friend = friends[index];
+          final friend = myAppState.friends[index];
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: GestureDetector(
