@@ -1,15 +1,19 @@
-import 'package:english_words/english_words.dart';
+// main.dart
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:proj/add_friend.dart';
+import 'package:proj/events.dart';
 import 'package:proj/firebase_options.dart';
+import 'package:proj/friend_app.dart';
 import 'package:proj/utils/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 //Import views
 import 'home.dart';
 import 'friends_list/friends.dart';
-import 'events.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,29 +22,44 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
-
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'frienDiary',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: myTheme.colorScheme
-        ),
-        home: MyHomePage(),
-      ),
+    return FutureBuilder(
+      future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ChangeNotifierProvider(
+            create: (context) => MyAppState(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'frienDiary',
+              theme: ThemeData(
+                useMaterial3: true,
+                colorScheme: myTheme.colorScheme,
+              ),
+              home: MyHomePage(),
+            ),
+          );
+        }
+        return CircularProgressIndicator();
+      },
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
-  var username = "Username";
+  String username = "Username";
+  String userEmail = "";
+  String userPhotoUrl = "";
+
+  void updateUser(User user) {
+    username = user.displayName ?? "Username";
+    userEmail = user.email ?? "";
+    userPhotoUrl = user.photoURL ?? "";
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -51,13 +70,61 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 1;
 
-
-  void navbarTapped(int index){
+  void navbarTapped(int index) {
     setState(() {
       selectedIndex = index;
     });
   }
-  
+
+  Future<void> _handleSignIn() async {
+    try {
+      final String clientId = '559087557131-6f6qnjk74ab60kr7ha34e3iu03979o7h.apps.googleusercontent.com';
+
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        clientId: clientId,
+        scopes: ['email'],
+      );
+
+      GoogleSignInAccount? googleSignInAccount = await googleSignIn.signInSilently();
+      if (googleSignInAccount == null) {
+        googleSignInAccount = await googleSignIn.signIn();
+      }
+
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+
+        final UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
+        final User? user = authResult.user;
+
+        if (user != null) {
+          print('Signed in as: ${user.displayName}');
+          Provider.of<MyAppState>(context, listen: false).updateUser(user);
+
+          final DatabaseReference usersRef = FirebaseDatabase.instance.reference().child('users');
+          final DatabaseReference userRef = usersRef.child(user.uid);
+
+          await userRef.set({
+            'username': user.displayName,
+            'email': user.email,
+            'friends': friends.map((friend) => friend).toList(),
+            'events': events.map((event) => event).toList(),
+          });
+        } else {
+          print('Sign in failed');
+        }
+      } else {
+        print('Google Sign-In cancelled or failed.');
+      }
+    } catch (error) {
+      print('Error signing in with Google: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget view;
@@ -66,14 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
         view = FriendsView();
         break;
       case 1:
-        view = HomeView();
+        view = HomeView(onSignIn: _handleSignIn);
         break;
       case 2:
         view = EventsView();
         break;
-      // case 3:
-      //   view = AddFriendView();
-      //   break;
+      case 3:
+        view = AddFriendView();
+        break;
       default:
         view = Placeholder();
     }
@@ -88,42 +155,10 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: selectedIndex,
         onTap: navbarTapped,
       ),
-      body: Expanded(
-        child: Container(
-          color: myTheme.colorScheme.surface,
-          child: view,
-        ),
+      body: Container(
+        color: myTheme.colorScheme.surface,
+        child: view,
       ),
     );
   }
 }
-
-
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = myTheme;
-    var style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: pair.asPascalCase,
-        ),
-      ),
-    );
-  }
-}
-
