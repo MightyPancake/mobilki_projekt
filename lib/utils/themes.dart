@@ -40,6 +40,13 @@ TextStyle titleStyle = TextStyle(
   color: myTheme.colorScheme.inversePrimary,
 );
 
+TextStyle displayFriendNameStyle = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w600,
+  fontFamily: 'Montserrat',
+  color: myTheme.colorScheme.inversePrimary,
+);
+
 TextStyle paragraphStyle = TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.w400,
@@ -56,6 +63,13 @@ TextStyle toolbarTextStyle = TextStyle(
 
 TextStyle tagTextStyle = TextStyle(
   fontSize: 12,
+  fontWeight: FontWeight.w500,
+  fontFamily: 'Montserrat',
+  color: myTheme.colorScheme.surface,
+);
+
+TextStyle smallTagTextStyle = TextStyle(
+  fontSize: 4,
   fontWeight: FontWeight.w500,
   fontFamily: 'Montserrat',
   color: myTheme.colorScheme.surface,
