@@ -8,7 +8,8 @@ import 'package:provider/provider.dart';
 //Import views
 import 'home.dart';
 import 'friends_list/friends.dart';
-import 'events.dart';
+import 'utils/splash_screen.dart';  // Import SplashScreen
+// import 'events.dart';
 
 
 Future<void> main() async {
@@ -18,8 +19,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
-
   const MyApp({super.key});
 
   @override
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: myTheme.colorScheme
         ),
-        home: MyHomePage(),
+        home: SplashScreen(),
       ),
     );
   }
@@ -68,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         view = HomeView();
         break;
-      case 2:
-        view = EventsView();
-        break;
+      // case 2:
+      //   view = EventsView();
+      //   break;
       // case 3:
       //   view = AddFriendView();
       //   break;
@@ -83,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Friends'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
+          // BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
         ],
         currentIndex: selectedIndex,
         onTap: navbarTapped,
