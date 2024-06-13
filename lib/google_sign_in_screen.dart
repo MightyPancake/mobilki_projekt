@@ -17,7 +17,7 @@ Future<void> _handleSignIn() async {
     // final String clientId = '559087557131-6f6qnjk74ab60kr7ha34e3iu03979o7h.apps.googleusercontent.com';
     
     //Android Client ID
-    final String clientId = '559087557131-6f6qnjk74ab60kr7ha34e3iu03979o7h.apps.googleusercontent.com';
+    final String clientId = '559087557131-fjv5053qf5a4lc7m075pb3htog8dqevj.apps.googleusercontent.com';
 
     final GoogleSignIn googleSignIn = GoogleSignIn(
       clientId: clientId,

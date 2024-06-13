@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "774704709066",
+    "firebase_url": "https://friendiary-krrg-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "friendiary-krrg",
     "storage_bucket": "friendiary-krrg.appspot.com"
   },
@@ -12,7 +13,16 @@
           "package_name": "com.example.proj"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "774704709066-s0qilgv4852858k2gjoupv5e56r43k1o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proj",
+            "certificate_hash": "b4556ab6a615378bf25bb5e202b01683d141fa38"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB5c32Gthryl0y8H7Zl3eOjFaFUPyk0U-0"
@@ -20,7 +30,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774704709066-b7hqo4avhhdgffkhmck740pdi96frvr0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "774704709066-b07dr7cdqcegtdbab82oq3l57hudh1n1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.proj"
+              }
+            }
+          ]
         }
       }
     }
