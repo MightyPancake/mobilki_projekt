@@ -29,6 +29,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/
+    - assets/icon/friendiary-logo.png
   fonts:
       - family: Montserrat
         fonts:

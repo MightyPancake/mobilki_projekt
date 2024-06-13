@@ -251,7 +251,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                       ),
                                       Row(children: [
                                         Text(
-                                          "${widget.friend.meetingList?.length}",
+                                          "${widget.friend.meetingList?.length?? 0}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontFamily: 'Asap',

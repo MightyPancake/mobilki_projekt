@@ -17,6 +17,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 // Import views
 import 'home.dart';
 import 'friends_list/friends.dart';
+import 'utils/splash_screen.dart';  // Import SplashScreen
+// import 'events.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
                 colorScheme: myTheme.colorScheme,
               ),
-              home: MyHomePage(),
+              home: SplashScreen(),
             ),
           );
         }
@@ -210,12 +212,12 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         view = HomeView(onSignIn: _handleSignIn);
         break;
-      case 2:
-        view = EventsView();
-        break;
-      case 3:
-        view = AddFriendView();
-        break;
+      // case 2:
+      //   view = EventsView();
+      //   break;
+      // case 3:
+      //   view = AddFriendView();
+      //   break;
       default:
         view = Placeholder();
     }
@@ -225,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Friends'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
+          // BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
         ],
         currentIndex: selectedIndex,
         onTap: navbarTapped,
