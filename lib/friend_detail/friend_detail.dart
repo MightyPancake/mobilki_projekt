@@ -6,8 +6,9 @@ import 'package:proj/friend_detail/friend_edit.dart';
 import 'package:proj/utils/components.dart';
 import 'package:proj/utils/dialog_windows.dart';
 import 'package:proj/utils/themes.dart';
+import 'package:provider/provider.dart';
 import '../friend_app.dart';
-
+import '../main.dart'; // Import your main.dart to access MyAppState
 
 class FriendDetailView extends StatefulWidget {
   final Friend friend;
@@ -305,7 +306,10 @@ class _FriendDetailViewState extends State<FriendDetailView> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AddMeetingDialog(friend: widget.friend),
-                                  ).then((_) => _updateState());
+                                  ).then((_) {
+                                    _updateState();
+                                    Provider.of<MyAppState>(context, listen: false).saveDataToFirebase();
+                                  });
                                 },
                               ),
                             ]
@@ -338,7 +342,10 @@ class _FriendDetailViewState extends State<FriendDetailView> {
             showDialog(
               context: context,
               builder: (context) => AddMeetingDialog(friend: widget.friend),
-            ).then((_) => _updateState());
+                        ).then((_) {
+              _updateState();
+              Provider.of<MyAppState>(context, listen: false).saveDataToFirebase();
+            });
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

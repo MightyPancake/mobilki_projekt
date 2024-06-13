@@ -34,20 +34,6 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 16),
             Text(myAppState.username, style: TextStyle(fontSize: 24)),
             Text(myAppState.userEmail, style: TextStyle(fontSize: 24)),
-            Expanded(
-              child: ListView.builder(
-                itemCount: myAppState.friends.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage(myAppState.friends[index].picture),
-                    ),
-                    title: Text(myAppState.friends[index].name),
-                    subtitle: Text(myAppState.friends[index].desc),
-                  );
-                },
-              ),
-            ),
           ],
         ),
       ),

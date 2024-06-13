@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:proj/main.dart';
 import 'package:proj/utils/themes.dart';
+import 'package:provider/provider.dart';
 import '../friend_detail/friend_detail.dart';
 import '../friend_app.dart';
 import 'add_friend.dart';
@@ -16,13 +18,15 @@ class _FriendsViewState extends State<FriendsView> {
   }
 
   void _addFriend(Friend newFriend) {
+    final myAppState = Provider.of<MyAppState>(context);
     setState(() {
-      friends.add(newFriend);
+      myAppState.friends.add(newFriend);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final myAppState = Provider.of<MyAppState>(context);
     var theme = myTheme;
     return Scaffold(
       appBar: AppBar(
@@ -68,9 +72,9 @@ class _FriendsViewState extends State<FriendsView> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: friends.length,
+                      itemCount: myAppState.friends.length,
                       itemBuilder: (context, index) {
-                        final friend = friends[index];
+                        final friend = myAppState.friends[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: GestureDetector(
@@ -79,7 +83,7 @@ class _FriendsViewState extends State<FriendsView> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => FriendDetailView(
-                                    friend: friends[index],
+                                    friend: myAppState.friends[index],
                                     onUpdate: _refreshState,
                                   ),
                                 ),
@@ -179,7 +183,6 @@ class _FriendsViewState extends State<FriendsView> {
             context,
             MaterialPageRoute(
               builder: (context) => AddFriendView(
-                friends: friends,
                 onAdd: _refreshState,
               ),
             ),

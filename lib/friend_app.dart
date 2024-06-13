@@ -93,7 +93,6 @@ class Event {
     );
   }
 }
-List<Friend> friends = [];
 
 // List<Friend> friends = [
 //   Friend(

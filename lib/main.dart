@@ -62,15 +62,6 @@ class MyAppState extends ChangeNotifier {
   String userEmail = "";
   String userPhotoUrl = "";
   List<Friend> friends = [
-    Friend(
-    name: "Roxanne",
-    picture: "",
-    birthday: DateTime(1989, 02, 12),
-    tags: ["znajomy"],
-    desc: "No description.",
-    notificationFreq: 144,
-    meetingList: [],
-  ),
   ];
   List<Event> events = [];
 

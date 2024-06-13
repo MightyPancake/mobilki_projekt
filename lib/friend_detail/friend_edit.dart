@@ -1,16 +1,16 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:proj/utils/components.dart';
 import 'package:proj/utils/themes.dart';
+import 'package:provider/provider.dart';
 import '../friend_app.dart';
-
+import '../main.dart'; // Import your main.dart to access MyAppState
 
 class EditFriendView extends StatefulWidget {
   final Friend friend;
-  final Function() onUpdate; // Add callback to notify changes
+  final Function() onUpdate;
 
   EditFriendView({required this.friend, required this.onUpdate});
 
@@ -146,7 +146,7 @@ class _EditFriendViewState extends State<EditFriendView> {
                           ),
                           const SizedBox(width: 10.0,),
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               setState(() {
                                 widget.friend.name = _nameController.text;
                                 widget.friend.desc = _descController.text;
@@ -158,6 +158,7 @@ class _EditFriendViewState extends State<EditFriendView> {
                                 }
                               });
                               widget.onUpdate(); // Notify changes
+                              await Provider.of<MyAppState>(context, listen: false).saveDataToFirebase(); // Save data to Firebase
                               Navigator.of(context).pop();
                             },
                             style: ButtonStyle(

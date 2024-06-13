@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:proj/utils/themes.dart';
+import 'package:provider/provider.dart';  // Import provider
 import '../../friend_app.dart';
+import '../../main.dart';  // Import main.dart to access MyAppState
 
 class AddFriendView extends StatefulWidget {
-  final List<Friend> friends;
   final Function() onAdd;
 
-  AddFriendView({required this.friends, required this.onAdd});
+  AddFriendView({required this.onAdd});
 
   @override
   _AddFriendViewState createState() => _AddFriendViewState();
@@ -60,22 +61,22 @@ class _AddFriendViewState extends State<AddFriendView> {
         _tempImagePath == null ||
         _selectedTags.isEmpty) {
       showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Brak danych'),
-                      content: Text('Musisz uzupełnić wszystkie pola.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Brak danych'),
+            content: Text('Musisz uzupełnić wszystkie pola.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
@@ -85,14 +86,17 @@ class _AddFriendViewState extends State<AddFriendView> {
       birthday: DateTime(_selectedYear, _months.indexOf(_selectedMonth) + 1, _selectedDay),
       notificationFreq: int.parse(_freqController.text),
       tags: List.from(_selectedTags),
-      picture: _tempImagePath ?? 'assets/img/default_avatar.png',
+      picture: _tempImagePath ?? 'assets/img/default_avatar.jpg',
     );
 
-    setState(() {
-      widget.friends.add(newFriend);
-    });
+    // Add friend to MyAppState
+    Provider.of<MyAppState>(context, listen: false).friends.add(newFriend);
 
     widget.onAdd();
+    
+    // Call saveDataToFirebase after adding the new friend
+    Provider.of<MyAppState>(context, listen: false).saveDataToFirebase();
+
     Navigator.of(context).pop();
   }
 
@@ -207,7 +211,7 @@ class _AddFriendViewState extends State<AddFriendView> {
                   CircleAvatar(
                     backgroundImage: _tempImagePath != null
                       ? FileImage(File(_tempImagePath!))
-                      : const AssetImage('assets/img/default_avatar.png') as ImageProvider,
+                      : const AssetImage('assets/img/default_avatar.jpg') as ImageProvider,
                     radius: 90.0,
                   ),
                   Positioned(
