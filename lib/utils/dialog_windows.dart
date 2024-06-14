@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proj/friend_app.dart';
 import 'dart:ui';
 import 'package:proj/utils/themes.dart';
+import 'package:provider/provider.dart';
+import 'package:proj/main.dart';  // Ensure this import to access MyAppState
 
 class AddMeetingDialog extends StatefulWidget {
   final Friend friend;
@@ -40,7 +42,6 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // inputTextField('Opis', _descriptionController),
               const SizedBox(height: 20.0),
               Padding(padding: EdgeInsets.symmetric(vertical: 15.0), child: Text(
                 'Data:',
@@ -124,7 +125,7 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               final selectedDate = DateTime(
                 _selectedYear,
                 _months.indexOf(_selectedMonth) + 1,
@@ -150,12 +151,16 @@ class _AddMeetingDialogState extends State<AddMeetingDialog> {
                 );
               } else {
                 widget.friend.meetingList?.add(selectedDate);
+                
+                // Save data to Firebase
+                await Provider.of<MyAppState>(context, listen: false).saveDataToFirebase();
+
                 Navigator.of(context).pop();
               }
             },
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all<Color>(theme.colorScheme.inversePrimary),
-              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              backgroundColor: MaterialStateProperty.all<Color>(theme.colorScheme.inversePrimary),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),

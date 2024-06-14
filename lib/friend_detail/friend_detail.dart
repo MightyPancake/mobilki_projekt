@@ -344,7 +344,7 @@ class _FriendDetailViewState extends State<FriendDetailView> {
               builder: (context) => AddMeetingDialog(friend: widget.friend),
                         ).then((_) {
               _updateState();
-              Provider.of<MyAppState>(context, listen: false).saveDataToFirebase();
+              //Provider.of<MyAppState>(context, listen: false).saveDataToFirebase();
             });
           },
           child: Row(

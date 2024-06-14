@@ -146,7 +146,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _handleSignIn() async {
     try {
+      //Mobile client ID
       final String clientId = '559087557131-6f6qnjk74ab60kr7ha34e3iu03979o7h.apps.googleusercontent.com';
+      
+      //Web client ID
+      // final String clientId = '559087557131-6f6qnjk74ab60kr7ha34e3iu03979o7h.apps.googleusercontent.com';
 
       final GoogleSignIn googleSignIn = GoogleSignIn(
         clientId: clientId,
