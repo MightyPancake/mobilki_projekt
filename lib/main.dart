@@ -1,12 +1,9 @@
 // main.dart
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:proj/add_friend.dart';
-import 'package:proj/events.dart';
 import 'package:proj/firebase_options.dart';
 import 'package:proj/friend_app.dart';
 import 'package:proj/utils/themes.dart';
@@ -18,11 +15,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'home.dart';
 import 'friends_list/friends.dart';
 import 'utils/splash_screen.dart';  // Import SplashScreen
-// import 'events.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(name: "FrienDiary", options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     ChangeNotifierProvider(
       create: (context) => MyAppState(),
@@ -37,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(name: "FrienDiary", options: DefaultFirebaseOptions.currentPlatform),
+      future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ChangeNotifierProvider(
@@ -63,8 +60,7 @@ class MyAppState extends ChangeNotifier {
   String username = "Username";
   String userEmail = "";
   String userPhotoUrl = "";
-  List<Friend> friends = [
-  ];
+  List<Friend> friends = [];
   List<Event> events = [];
 
   void updateUser(User? user) {
@@ -75,13 +71,12 @@ class MyAppState extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   void updateFriendsAndEvents(List<Friend> fetchedFriends, List<Event> fetchedEvents) {
-    // Use spread operator to create new immutable lists
     friends = [...fetchedFriends];
     events = [...fetchedEvents];
     notifyListeners();
   }
-
 
   Future<void> saveDataToFirebase() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -100,25 +95,17 @@ class MyAppState extends ChangeNotifier {
     }
   }
 
- Future<void> fetchDataFromFirebase(String userId) async {
+  Future<void> fetchDataFromFirebase(String userId) async {
     try {
       final DatabaseReference usersRef = FirebaseDatabase.instance.reference().child('users').child(userId);
-
-      // Fetch data once from the database
       DatabaseEvent event = await usersRef.once();
-      
-      // Extract DataSnapshot from the DatabaseEvent
       DataSnapshot dataSnapshot = event.snapshot;
-
-      // Access the data snapshot's value
       var value = dataSnapshot.value;
 
       if (value != null && value is Map<dynamic, dynamic>) {
-        // Convert to JSON string and then decode back to Map<String, dynamic>
         String jsonString = jsonEncode(value);
         Map<String, dynamic> dataMap = jsonDecode(jsonString);
 
-        // Deserialize friends
         List<Friend> fetchedFriends = [];
         if (dataMap.containsKey('friends')) {
           List<dynamic> friendsDataList = dataMap['friends'];
@@ -126,7 +113,6 @@ class MyAppState extends ChangeNotifier {
           fetchedFriends = friendsData.map((friendData) => Friend.fromJson(friendData)).toList();
         }
 
-        // Deserialize events
         List<Event> fetchedEvents = [];
         if (dataMap.containsKey('events')) {
           List<dynamic> eventsDataList = dataMap['events'];
@@ -134,7 +120,6 @@ class MyAppState extends ChangeNotifier {
           fetchedEvents = eventsData.map((eventData) => Event.fromJson(eventData)).toList();
         }
 
-        // Update your app state with fetched data
         updateFriendsAndEvents(fetchedFriends, fetchedEvents);
       } else {
         print('Data is not in expected format');
@@ -200,9 +185,27 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Future<void> _handleSignOut() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
+
+      await FirebaseAuth.instance.signOut();
+
+      // Clear user data from app state
+      Provider.of<MyAppState>(context, listen: false).updateUser(null);
+      Provider.of<MyAppState>(context, listen: false).updateFriendsAndEvents([], []);
+    } catch (error) {
+      print('Error signing out: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final myAppState = Provider.of<MyAppState>(context);
+
+    // Determine if the user is signed in
+    final bool isLoggedIn = myAppState.userEmail.isNotEmpty;
 
     Widget view;
     switch (selectedIndex) {
@@ -210,24 +213,18 @@ class _MyHomePageState extends State<MyHomePage> {
         view = FriendsView();
         break;
       case 1:
-        view = HomeView(onSignIn: _handleSignIn);
+        view = HomeView(onSignIn: isLoggedIn ? _handleSignOut : _handleSignIn, isLoggedIn: isLoggedIn);
         break;
-      // case 2:
-      //   view = EventsView();
-      //   break;
-      // case 3:
-      //   view = AddFriendView();
-      //   break;
       default:
         view = Placeholder();
     }
 
+    
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Friends'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          // BottomNavigationBarItem(icon: Icon(Icons.event), label: 'Events'),
         ],
         currentIndex: selectedIndex,
         onTap: navbarTapped,

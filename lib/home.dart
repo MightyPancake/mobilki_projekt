@@ -6,8 +6,9 @@ import 'main.dart';
 
 class HomeView extends StatelessWidget {
   final VoidCallback onSignIn;
+  final bool isLoggedIn;
 
-  const HomeView({Key? key, required this.onSignIn}) : super(key: key);
+  const HomeView({Key? key, required this.onSignIn, required this.isLoggedIn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
